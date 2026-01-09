@@ -10,7 +10,8 @@
             $sql = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
             $stmt = $this->pdo->prepare($sql);
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-            $stmt->execute(['username' => $username, 'email' => $email, 'password' => $hashed_password]);
+            $user =$stmt->execute(['username' => $username, 'email' => $email, 'password' => $hashed_password]);
+            return $user;
         }
 
         public function findByUsername($username){
