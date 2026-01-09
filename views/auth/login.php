@@ -14,7 +14,7 @@
         $valid = $auth->login($username, $password);
 
         if ($valid) {
-            header("Location: dashboard.php");
+            header("Location: ../tasks/dashboard.php");
             exit;
         } else {
             $error = "Invalid username or password";
