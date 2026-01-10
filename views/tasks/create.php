@@ -37,8 +37,8 @@
                 </div>
             </div>
             <div>
-                <label for="due_date">Due Date : </label>
-                <input class="bg-white text-black" type="date" id="due_date" name="due_date">
+                <label for="dueDate">Due Date : </label>
+                <input class="bg-white text-black" type="date" id="dueDate" name="due_date">
             </div>
             <button type="submit" class="bg-blue-900 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
             <button type="button" onclick="window.location.href='index.php?action=dashboard'" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-800">Cancel</button>
