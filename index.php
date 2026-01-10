@@ -115,7 +115,31 @@ session_start();
             }
             break;
         case 'delete':
-            $taskController->deleteTask($_GET['id']);
+            $id = $_GET['id'];
+
+            if (!$id) {
+                header("Location: index.php?action=dashboard");
+                exit;
+            }
+
+            $taskData = $taskController->getTask($id);
+
+            // optional: pastikan task milik user yang login
+            if ($taskData['user_id'] != $userId) {
+                header("Location: index.php?action=dashboard");
+                exit;
+            }
+            include __DIR__ . "/views/tasks/delete.php";
+            break;
+        case 'deleteTask':
+            if($request === 'POST'){
+                $id = $_GET['id'];
+
+                $taskController->deleteTask($id);
+                header("Location: index.php?action=dashboard");
+                exit;
+            }
+            $taskController->deleteTask($id);
             break;
         case 'dashboard':
             $taskList = $taskController->listTasks();
