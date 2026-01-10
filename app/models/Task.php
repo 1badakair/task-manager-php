@@ -5,6 +5,7 @@
         public function __construct(PDO $pdo){
             $this->pdo = $pdo;
         }
+        
         public function fetchAll(){
             $sql = "SELECT * FROM tasks";
             $stmt = $this->pdo->query($sql);
@@ -18,16 +19,16 @@
             return $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
-        public function create($title, $description, $status, $priority, $dueDate){
-            $sql = "INSERT INTO tasks (title, description, status, priority, due_date) VALUES (:title, :description, :status, :priority, :dueDate)";
+        public function create($userId, $title, $status, $priority, $dueDate){
+            $sql = "INSERT INTO tasks (user_id, title, status, priority, due_date) VALUES (:userId, :title, :status, :priority, :dueDate)";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute(['title' => $title, 'description' => $description, 'status' => $status, 'priority' => $priority, 'dueDate' => $dueDate]);
+            $stmt->execute(['userId' => $userId, 'title' => $title, 'status' => $status, 'priority' => $priority, 'dueDate' => $dueDate]);
         }
 
-        public function update($id, $title, $description, $status, $priority, $dueDate){
-            $sql = "UPDATE tasks SET title = :title, description = :description, status = :status, priority = :priority, due_date = :dueDate WHERE id = :id";
+        public function update($id, $title, $status, $priority, $dueDate){
+            $sql = "UPDATE tasks SET title = :title, status = :status, priority = :priority, due_date = :dueDate WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute(['title' => $title, 'description' => $description, 'status' => $status, 'priority' => $priority, 'dueDate' => $dueDate, 'id' => $id]);
+            $stmt->execute(['title' => $title, 'status' => $status, 'priority' => $priority, 'dueDate' => $dueDate, 'id' => $id]);
         }
 
         public function delete($id){
