@@ -38,8 +38,8 @@
                         <?= $task['due_date'] ?>
                     </td>
                     <td class="border px-4 py-2 flex gap-4">
-                        <a href="dashboard.php?action=edit&id=<?= $task['id'] ?>" class="bg-yellow-500 hover:bg-yellow-800 text-white py-1 px-2 rounded">Edit</a>
-                        <a href="dashboard.php?action=delete&id=<?= $task['id'] ?>" class="bg-red-500 hover:bg-red-800 text-white py-1 px-2 rounded">Delete</a>
+                        <a href="index.php?action=edit&id=<?= $task['id'] ?>" class="bg-yellow-500 hover:bg-yellow-800 text-white py-1 px-2 rounded">Edit</a>
+                        <a href="index.php?action=delete&id=<?= $task['id'] ?>" class="bg-red-500 hover:bg-red-800 text-white py-1 px-2 rounded">Delete</a>
                     </td>
                 </tr>
                 <?php endforeach?>

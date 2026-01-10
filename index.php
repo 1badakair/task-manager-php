@@ -64,9 +64,9 @@ session_start();
                 $title = $_POST['title'];
                 $status = $_POST['status'];
                 $priority = $_POST['priority'];
-                $due_date = $_POST['due_date'];
+                $dueDate = $_POST['due_date'];
 
-                if (empty($title) || empty($status) || empty($priority) || empty($due_date)) {
+                if (empty($title) || empty($status) || empty($priority) || empty($dueDate)) {
                     $error = "All fields are required.";
                     include __DIR__ . "/views/tasks/create.php";
                     exit;
@@ -78,7 +78,41 @@ session_start();
             $taskController->createTask($userId, $title, $status, $priority, $dueDate);
             break;
         case 'edit':
-            $taskController->updateTask($_POST['id'], $_POST['title'], $_POST['status'], $_POST['priority'], $_POST['due_date']);
+            $id = $_GET['id'];
+
+            if (!$id) {
+                header("Location: index.php?action=dashboard");
+                exit;
+            }
+
+            $taskData = $taskController->getTask($id);
+
+            // optional: pastikan task milik user yang login
+            if ($taskData['user_id'] != $userId) {
+                header("Location: index.php?action=dashboard");
+                exit;
+            }
+            include __DIR__ . "/views/tasks/edit.php";
+            break;
+        case 'updateTask':
+            if($request === 'POST'){
+                $id = $_GET['id'];
+                $title = $_POST['title'];
+                $status = $_POST['status'];
+                $priority = $_POST['priority'];
+                $dueDate = $_POST['due_date'];
+
+                if (empty($title) || empty($status) || empty($priority) || empty($dueDate)) {
+                    $error = "All fields are required.";
+                    $taskData = $taskController->getTask($id);
+                    include __DIR__ . "/views/tasks/edit.php";
+                    exit;
+                }
+
+                $taskController->updateTask($id, $title, $status, $priority, $dueDate);
+                header("Location: index.php?action=dashboard");
+                exit;
+            }
             break;
         case 'delete':
             $taskController->deleteTask($_GET['id']);
