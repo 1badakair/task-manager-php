@@ -12,30 +12,30 @@
         </div>
     </div>
     <div class="bg-gray-300 py-8 px-12 mx-8 mx-12 rounded-lg shadow-lg">
-        <table class="w-full table-auto py">
+        <table class="w-full table-auto">
             <thead class="bg-gray-800 text-white">
                 <tr>
-                    <th class="w-1/3 px-4 py-2">Title</th>
-                    <th>Status</th>
-                    <th>Priority</th>
-                    <th>Due Date</th>
-                    <th>Act(Edit/Delete)</th>
+                    <th class="w-2/10 px-4 py-2">Title</th>
+                    <th class="w-1/10 px-4 py-2">Status</th>
+                    <th class="w-1/10 px-4 py-2">Priority</th>
+                    <th class="w-2/10 px-4 py-2">Due Date</th>
+                    <th class="w-1/10 px-4 py-2">Act</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach($taskList as $task): ?>
                 <tr>
                     <td class="border px-4 py-2">
-                        <?= $task['title'] ?>
+                        <?= htmlspecialchars($task['title']) ?>
                     </td>
                     <td class="border px-4 py-2">
-                        <?= $task['status'] ?>
+                        <?= htmlspecialchars(ucwords(str_replace('_', ' ', $task['status']))) ?>
                     </td>
                     <td class="border px-4 py-2">
-                        <?= $task['priority'] ?>
+                        <?= htmlspecialchars(ucwords($task['priority'])) ?>
                     </td>
                     <td class="border px-4 py-2">
-                        <?= $task['due_date'] ?>
+                        <?= htmlspecialchars(date('d M Y', strtotime($task['due_date']))) ?>
                     </td>
                     <td class="border px-4 py-2 flex gap-4">
                         <a href="index.php?action=edit&id=<?= $task['id'] ?>" class="bg-yellow-500 hover:bg-yellow-800 text-white py-1 px-2 rounded">Edit</a>

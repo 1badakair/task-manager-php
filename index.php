@@ -8,8 +8,8 @@ session_start();
 
     $action = isset($_GET['action']) ? $_GET['action'] : '';
     $request = $_SERVER['REQUEST_METHOD'];
-    $userId = $_SESSION['user_id'];
-    if (!isset($userId) && !in_array($action, ['login','register',''])) {
+    $userId = $_SESSION['user_id'] ?? null;
+    if ($userId == null && !in_array($action, ['login','register',''])) {
         header("Location: index.php?action=login");
         exit;
     }
@@ -55,6 +55,12 @@ session_start();
                 }
             }
             include __DIR__ . "/views/auth/register.php";
+            break;
+        case 'logout':
+            session_unset();
+            session_destroy();
+            header("Location: index.php?action=login");
+            exit;
             break;
         case 'create':
             include __DIR__ . "/views/tasks/create.php";
