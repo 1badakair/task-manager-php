@@ -10,8 +10,6 @@ require_once "app/middleware/AuthMiddleware.php";
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 $request = $_SERVER['REQUEST_METHOD'];
 $userId = $_SESSION['user_id'] ?? null;
-$id = $_GET['id'];
-
 if (!in_array($action, ['login', 'register', ''])) {
     AuthMiddleware::handle();
 }
@@ -94,7 +92,6 @@ switch ($action) {
 
         $taskData = $taskController->getTask($id);
 
-        // optional: pastikan task milik user yang login
         if ($taskData['user_id'] != $userId) {
             header("Location: index.php?action=dashboard");
             exit;
@@ -123,6 +120,7 @@ switch ($action) {
         break;
     case 'delete':
         $id = $_GET['id'];
+
         if (!$id) {
             header("Location: index.php?action=dashboard");
             exit;
@@ -130,7 +128,6 @@ switch ($action) {
 
         $taskData = $taskController->getTask($id);
 
-        // optional: pastikan task milik user yang login
         if ($taskData['user_id'] != $userId) {
             header("Location: index.php?action=dashboard");
             exit;
