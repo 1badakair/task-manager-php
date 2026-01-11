@@ -74,3 +74,4 @@ class Task
         $stmt->execute(['id' => $id]);
     }
 }
+?>

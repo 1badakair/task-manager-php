@@ -38,3 +38,4 @@ class TaskController
         $this->taskModel->delete($id);
     }
 }
+?>
