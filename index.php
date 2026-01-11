@@ -28,7 +28,6 @@ session_start();
                 $password = ($_POST['password']);
                 if ($userController->login($username, $password)) {
                     header("Location: index.php?action=dashboard");
-                    $taskList = $taskController->listTasks();
                     exit;
                 }else{
                     $error = "Invalid username or password";
@@ -148,7 +147,12 @@ session_start();
             $taskController->deleteTask($id);
             break;
         case 'dashboard':
-            $taskList = $taskController->listTasks();
+            $status   = $_GET['status'] ?? 'all';
+            $priority = $_GET['priority'] ?? 'all';
+            $sortDue  = $_GET['sort_due'] ?? 'all';
+
+            $taskList = $taskController->listFilteredTasks($userId, $status, $priority, $sortDue);
+
             include __DIR__ . "/views/tasks/dashboard.php";
             break;
         default:
